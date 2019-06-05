@@ -1,9 +1,8 @@
 package br.com.brlima.cursomc.rest;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,8 +18,8 @@ public class CategoriaRest {
 	private CategoriaService service;
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Categoria> find(@PathParam("id") Long id) {
-		Categoria categoria = service.buscar(id);
+	public ResponseEntity<Categoria> find(@PathVariable("id") Long id) {
+		Categoria categoria = service.find(id);
 		return ResponseEntity.ok().body(categoria);
 	}
 }
