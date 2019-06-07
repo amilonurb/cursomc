@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -17,10 +19,12 @@ import lombok.NoArgsConstructor;
 public class ItemPedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@EmbeddedId
 	@EqualsAndHashCode.Include
+	@JsonIgnore
 	private ItemPedidoPK id = new ItemPedidoPK();
+
 	private Integer quantidade;
 	private BigDecimal desconto;
 	private BigDecimal preco;
@@ -33,6 +37,7 @@ public class ItemPedido implements Serializable {
 		this.preco = preco;
 	}
 
+	@JsonIgnore
 	public Pedido getPedido() {
 		return this.id.getPedido();
 	}
