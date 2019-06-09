@@ -1,4 +1,4 @@
-package br.com.brlima.cursomc.model;
+package br.com.brlima.cursomc.model.produto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -18,6 +18,8 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.brlima.cursomc.model.pedido.ItemPedido;
+import br.com.brlima.cursomc.model.pedido.Pedido;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

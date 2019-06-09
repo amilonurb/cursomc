@@ -1,7 +1,8 @@
-package br.com.brlima.cursomc.model;
+package br.com.brlima.cursomc.model.pagamento;
 
 import javax.persistence.Entity;
 
+import br.com.brlima.cursomc.model.pedido.Pedido;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

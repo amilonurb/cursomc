@@ -1,4 +1,4 @@
-package br.com.brlima.cursomc.model;
+package br.com.brlima.cursomc.model.localizacao;
 
 import java.io.Serializable;
 
@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.brlima.cursomc.model.cliente.Cliente;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

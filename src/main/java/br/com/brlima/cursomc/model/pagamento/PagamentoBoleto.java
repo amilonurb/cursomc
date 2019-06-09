@@ -1,11 +1,12 @@
-package br.com.brlima.cursomc.model;
+package br.com.brlima.cursomc.model.pagamento;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.brlima.cursomc.model.pedido.Pedido;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -19,12 +20,12 @@ public class PagamentoBoleto extends Pagamento {
 	private static final long serialVersionUID = 1L;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private Date dataPagamento;
+	private LocalDate dataPagamento;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private Date dataVencimento;
+	private LocalDate dataVencimento;
 
-	public PagamentoBoleto(Long id, EstadoPagamento estadoPagamento, Pedido pedido, Date dataPagamento, Date dataVencimento) {
+	public PagamentoBoleto(Long id, EstadoPagamento estadoPagamento, Pedido pedido, LocalDate dataPagamento, LocalDate dataVencimento) {
 		super(id, estadoPagamento, pedido);
 		this.dataPagamento = dataPagamento;
 		this.dataVencimento = dataVencimento;

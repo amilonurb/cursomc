@@ -1,4 +1,4 @@
-package br.com.brlima.cursomc.model;
+package br.com.brlima.cursomc.model.localizacao;
 
 import java.io.Serializable;
 
@@ -28,7 +28,7 @@ public class Cidade implements Serializable {
 	@EqualsAndHashCode.Include
 	private Long id;
 	private String nome;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "estado_id")
 	private Estado estado;

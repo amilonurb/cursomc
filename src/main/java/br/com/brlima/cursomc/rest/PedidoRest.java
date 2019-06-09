@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.brlima.cursomc.model.Pedido;
+import br.com.brlima.cursomc.model.pedido.Pedido;
 import br.com.brlima.cursomc.service.PedidoService;
 
 @RestController

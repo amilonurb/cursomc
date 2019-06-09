@@ -1,4 +1,4 @@
-package br.com.brlima.cursomc.model;
+package br.com.brlima.cursomc.model.pagamento;
 
 import java.io.Serializable;
 
@@ -12,6 +12,7 @@ import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.brlima.cursomc.model.pedido.Pedido;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -43,11 +44,11 @@ public abstract class Pagamento implements Serializable {
 		this.codigoEstadoPagamento = estadoPagamento.getKey();
 		this.pedido = pedido;
 	}
-	
+
 	public EstadoPagamento getEstadoPagamento() {
 		return EstadoPagamento.toEnum(this.codigoEstadoPagamento);
 	}
-	
+
 	public void setEstadoPagamento(EstadoPagamento estadoPagamento) {
 		this.codigoEstadoPagamento = estadoPagamento.getKey();
 	}

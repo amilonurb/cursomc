@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.brlima.cursomc.model.Cliente;
+import br.com.brlima.cursomc.model.cliente.Cliente;
 import br.com.brlima.cursomc.repository.ClienteRepository;
 import br.com.brlima.cursomc.service.exception.ObjectNotFoundException;
 

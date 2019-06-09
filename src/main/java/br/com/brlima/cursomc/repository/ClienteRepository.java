@@ -3,7 +3,7 @@ package br.com.brlima.cursomc.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.brlima.cursomc.model.Cliente;
+import br.com.brlima.cursomc.model.cliente.Cliente;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {

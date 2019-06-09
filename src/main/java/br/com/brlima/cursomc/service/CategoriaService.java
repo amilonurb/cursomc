@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.brlima.cursomc.model.Categoria;
+import br.com.brlima.cursomc.model.produto.Categoria;
 import br.com.brlima.cursomc.repository.CategoriaRepository;
 import br.com.brlima.cursomc.service.exception.ObjectNotFoundException;
 

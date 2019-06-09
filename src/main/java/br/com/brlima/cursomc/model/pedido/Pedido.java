@@ -1,7 +1,7 @@
-package br.com.brlima.cursomc.model;
+package br.com.brlima.cursomc.model.pedido;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,6 +17,9 @@ import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.brlima.cursomc.model.cliente.Cliente;
+import br.com.brlima.cursomc.model.localizacao.Endereco;
+import br.com.brlima.cursomc.model.pagamento.Pagamento;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -35,7 +38,7 @@ public class Pedido implements Serializable {
 	private Long id;
 
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-	private Date data;
+	private LocalDateTime data;
 
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private Pagamento pagamento;
@@ -51,7 +54,7 @@ public class Pedido implements Serializable {
 	@OneToMany(mappedBy = "id.pedido")
 	private Set<ItemPedido> itens = new HashSet<>();
 
-	public Pedido(Long id, Date data, Cliente cliente, Endereco enderecoEntrega) {
+	public Pedido(Long id, LocalDateTime data, Cliente cliente, Endereco enderecoEntrega) {
 		this.id = id;
 		this.data = data;
 		this.cliente = cliente;

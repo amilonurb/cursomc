@@ -1,4 +1,4 @@
-package br.com.brlima.cursomc.model;
+package br.com.brlima.cursomc.model.pedido;
 
 import java.io.Serializable;
 
@@ -6,6 +6,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import br.com.brlima.cursomc.model.produto.Produto;
 import lombok.Data;
 
 /**

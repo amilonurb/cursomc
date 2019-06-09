@@ -1,13 +1,13 @@
-package br.com.brlima.cursomc.model;
+package br.com.brlima.cursomc.model.cliente;
 
-public enum EstadoPagamento {
+public enum TipoCliente {
 
-	PENDENTE(1, "Pendente"), QUITADO(2, "Quitado"), CANCELADO(3, "Cancelado");
+	PESSOA_FISICA(1, "Pessoa Física"), PESSOA_JURIDICA(2, "Pessoa Jurídica");
 
 	private Integer key;
 	private String nome;
 
-	private EstadoPagamento(Integer key, String nome) {
+	private TipoCliente(Integer key, String nome) {
 		this.key = key;
 		this.nome = nome;
 	}
@@ -20,12 +20,12 @@ public enum EstadoPagamento {
 		return nome;
 	}
 
-	public static EstadoPagamento toEnum(Integer codigo) {
+	public static TipoCliente toEnum(Integer codigo) {
 		if (codigo == null) {
 			return null;
 		}
 
-		for (EstadoPagamento tipoCliente : EstadoPagamento.values()) {
+		for (TipoCliente tipoCliente : TipoCliente.values()) {
 			if (tipoCliente.getKey().equals(codigo)) {
 				return tipoCliente;
 			}
