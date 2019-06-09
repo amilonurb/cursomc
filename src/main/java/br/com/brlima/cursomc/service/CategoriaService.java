@@ -17,12 +17,16 @@ public class CategoriaService {
 
 	public Categoria find(Long id) {
 		Optional<Categoria> categoria = repository.findById(id);
-		return categoria.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! ID: " + id + ", Tipo: " + Categoria.class.getName()));
+		return categoria.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
-	
+
 	public Categoria insert(Categoria categoria) {
 		categoria.setId(null);
+		return repository.save(categoria);
+	}
+
+	public Categoria update(Categoria categoria) {
+		this.find(categoria.getId());
 		return repository.save(categoria);
 	}
 }
