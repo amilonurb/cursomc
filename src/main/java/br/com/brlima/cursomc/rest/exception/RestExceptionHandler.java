@@ -10,17 +10,24 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import br.com.brlima.cursomc.service.exception.DataIntegrityException;
 import br.com.brlima.cursomc.service.exception.ObjectNotFoundException;
 
+/**
+ * Tratador de exceções REST
+ * 
+ * Evita que exceções tenham que ser tratadas na camada REST, deixando a api "limpa".
+ * 
+ * Basta dar um throw new MinhaExcecao() que a resposta da requisição HTTP será tratada nesta classe. 
+ */
 @ControllerAdvice
 public class RestExceptionHandler {
 
-    @ExceptionHandler(value = ObjectNotFoundException.class)
-    public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException exception, HttpServletRequest request) {
+    @ExceptionHandler(ObjectNotFoundException.class)
+    public ResponseEntity<StandardError> handleObjectNotFound(ObjectNotFoundException exception, HttpServletRequest request) {
         StandardError error = new StandardError(HttpStatus.NOT_FOUND.value(), exception.getMessage(), System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
-    @ExceptionHandler(value = DataIntegrityException.class)
-    public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException exception, HttpServletRequest request) {
+    @ExceptionHandler(DataIntegrityException.class)
+    public ResponseEntity<StandardError> handleDataIntegrity(DataIntegrityException exception, HttpServletRequest request) {
         StandardError error = new StandardError(HttpStatus.BAD_REQUEST.value(), exception.getMessage(), System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
