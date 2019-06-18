@@ -30,34 +30,34 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Pedido implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@EqualsAndHashCode.Include
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
+    private Long id;
 
-	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-	private LocalDateTime data;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+    private LocalDateTime data;
 
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
-	private Pagamento pagamento;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
+    private Pagamento pagamento;
 
-	@ManyToOne
-	@JoinColumn(name = "cliente_id")
-	private Cliente cliente;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
-	@ManyToOne
-	@JoinColumn(name = "endereco_entrega_id")
-	private Endereco enderecoEntrega;
+    @ManyToOne
+    @JoinColumn(name = "endereco_entrega_id")
+    private Endereco enderecoEntrega;
 
-	@OneToMany(mappedBy = "id.pedido")
-	private Set<ItemPedido> itens = new HashSet<>();
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<ItemPedido> itens = new HashSet<>();
 
-	public Pedido(Long id, LocalDateTime data, Cliente cliente, Endereco enderecoEntrega) {
-		this.id = id;
-		this.data = data;
-		this.cliente = cliente;
-		this.enderecoEntrega = enderecoEntrega;
-	}
+    public Pedido(Long id, LocalDateTime data, Cliente cliente, Endereco enderecoEntrega) {
+        this.id = id;
+        this.data = data;
+        this.cliente = cliente;
+        this.enderecoEntrega = enderecoEntrega;
+    }
 }

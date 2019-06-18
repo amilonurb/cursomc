@@ -17,17 +17,17 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 public class PagamentoBoleto extends Pagamento {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDate dataPagamento;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataPagamento;
 
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDate dataVencimento;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataVencimento;
 
-	public PagamentoBoleto(Long id, EstadoPagamento estadoPagamento, Pedido pedido, LocalDate dataPagamento, LocalDate dataVencimento) {
-		super(id, estadoPagamento, pedido);
-		this.dataPagamento = dataPagamento;
-		this.dataVencimento = dataVencimento;
-	}
+    public PagamentoBoleto(Long id, EstadoPagamento estadoPagamento, Pedido pedido, LocalDate dataPagamento, LocalDate dataVencimento) {
+        super(id, estadoPagamento, pedido);
+        this.dataPagamento = dataPagamento;
+        this.dataVencimento = dataVencimento;
+    }
 }

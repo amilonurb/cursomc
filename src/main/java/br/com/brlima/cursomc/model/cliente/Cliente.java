@@ -28,41 +28,41 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Cliente implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@EqualsAndHashCode.Include
-	private Long id;
-	private String nome;
-	private String email;
-	private String cpfOuCnpj;
-	private Integer codigoTipoCliente;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
+    private Long id;
+    private String nome;
+    private String email;
+    private String cpfOuCnpj;
+    private Integer codigoTipoCliente;
 
-	@OneToMany(mappedBy = "cliente")
-	private List<Endereco> enderecos = new ArrayList<>();
+    @OneToMany(mappedBy = "cliente")
+    private List<Endereco> enderecos = new ArrayList<>();
 
-	@ElementCollection
-	@CollectionTable(name = "TELEFONE")
-	private Set<String> telefones = new HashSet<>();
+    @ElementCollection
+    @CollectionTable(name = "TELEFONE")
+    private Set<String> telefones = new HashSet<>();
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "cliente")
-	private List<Pedido> pedidos = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos = new ArrayList<>();
 
-	public Cliente(Long id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
-		this.id = id;
-		this.nome = nome;
-		this.email = email;
-		this.cpfOuCnpj = cpfOuCnpj;
-		this.codigoTipoCliente = tipoCliente.getKey();
-	}
+    public Cliente(Long id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.cpfOuCnpj = cpfOuCnpj;
+        this.codigoTipoCliente = tipoCliente.getKey();
+    }
 
-	public TipoCliente getTipoCliente() {
-		return TipoCliente.toEnum(this.codigoTipoCliente);
-	}
+    public TipoCliente getTipoCliente() {
+        return TipoCliente.toEnum(this.codigoTipoCliente);
+    }
 
-	public void setTipoCliente(TipoCliente tipoCliente) {
-		this.codigoTipoCliente = tipoCliente.getKey();
-	}
+    public void setTipoCliente(TipoCliente tipoCliente) {
+        this.codigoTipoCliente = tipoCliente.getKey();
+    }
 }

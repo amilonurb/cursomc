@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 public class PagamentoCartao extends Pagamento {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private Integer numeroParcelas;
+    private Integer numeroParcelas;
 
-	public PagamentoCartao(Long id, EstadoPagamento estadoPagamento, Pedido pedido, Integer numeroParcelas) {
-		super(id, estadoPagamento, pedido);
-		this.numeroParcelas = numeroParcelas;
-	}
+    public PagamentoCartao(Long id, EstadoPagamento estadoPagamento, Pedido pedido, Integer numeroParcelas) {
+        super(id, estadoPagamento, pedido);
+        this.numeroParcelas = numeroParcelas;
+    }
 }

@@ -24,32 +24,32 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public abstract class Pagamento implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@EqualsAndHashCode.Include
-	private Long id;
+    @Id
+    @EqualsAndHashCode.Include
+    private Long id;
 
-	private Integer codigoEstadoPagamento;
+    private Integer codigoEstadoPagamento;
 
-	@JsonIgnore
-	@OneToOne
-	@JoinColumn(name = "pedido_id")
-	@MapsId
-	private Pedido pedido;
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "pedido_id")
+    @MapsId
+    private Pedido pedido;
 
-	public Pagamento(Long id, EstadoPagamento estadoPagamento, Pedido pedido) {
-		super();
-		this.id = id;
-		this.codigoEstadoPagamento = estadoPagamento.getKey();
-		this.pedido = pedido;
-	}
+    public Pagamento(Long id, EstadoPagamento estadoPagamento, Pedido pedido) {
+        super();
+        this.id = id;
+        this.codigoEstadoPagamento = estadoPagamento.getKey();
+        this.pedido = pedido;
+    }
 
-	public EstadoPagamento getEstadoPagamento() {
-		return EstadoPagamento.toEnum(this.codigoEstadoPagamento);
-	}
+    public EstadoPagamento getEstadoPagamento() {
+        return EstadoPagamento.toEnum(this.codigoEstadoPagamento);
+    }
 
-	public void setEstadoPagamento(EstadoPagamento estadoPagamento) {
-		this.codigoEstadoPagamento = estadoPagamento.getKey();
-	}
+    public void setEstadoPagamento(EstadoPagamento estadoPagamento) {
+        this.codigoEstadoPagamento = estadoPagamento.getKey();
+    }
 }

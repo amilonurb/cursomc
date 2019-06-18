@@ -14,12 +14,12 @@ import br.com.brlima.cursomc.service.PedidoService;
 @RequestMapping(value = "pedidos")
 public class PedidoRest {
 
-	@Autowired
-	private PedidoService service;
+    @Autowired
+    private PedidoService service;
 
-	@GetMapping("/{id}")
-	public ResponseEntity<Pedido> find(@PathVariable("id") Long id) {
-		Pedido Pedido = service.find(id);
-		return ResponseEntity.ok().body(Pedido);
-	}
+    @GetMapping("/{id}")
+    public ResponseEntity<Pedido> find(@PathVariable("id") Long id) {
+        Pedido pedido = service.find(id);
+        return ResponseEntity.ok().body(pedido);
+    }
 }

@@ -30,38 +30,38 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Produto implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@EqualsAndHashCode.Include
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
+    private Long id;
 
-	private String nome;
-	private BigDecimal preco;
+    private String nome;
+    private BigDecimal preco;
 
-	@JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
-	private List<Categoria> categorias = new ArrayList<>();
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    private List<Categoria> categorias = new ArrayList<>();
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "id.produto")
-	private Set<ItemPedido> itens = new HashSet<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "id.produto")
+    private Set<ItemPedido> itens = new HashSet<>();
 
-	public Produto(Long id, String nome, BigDecimal preco) {
-		this.id = id;
-		this.nome = nome;
-		this.preco = preco;
-	}
+    public Produto(Long id, String nome, BigDecimal preco) {
+        this.id = id;
+        this.nome = nome;
+        this.preco = preco;
+    }
 
-	/**
-	 * Implementa a associação "Produto conhece os seus pedidos"
-	 */
-	@JsonIgnore
-	public List<Pedido> getPedidos() {
-		List<Pedido> pedidos = new ArrayList<>();
-		itens.forEach(item -> pedidos.add(item.getPedido()));
-		return pedidos;
-	}
+    /**
+     * Implementa a associação "Produto conhece os seus pedidos"
+     */
+    @JsonIgnore
+    public List<Pedido> getPedidos() {
+        List<Pedido> pedidos = new ArrayList<>();
+        itens.forEach(item -> pedidos.add(item.getPedido()));
+        return pedidos;
+    }
 }

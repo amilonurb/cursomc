@@ -12,12 +12,11 @@ import br.com.brlima.cursomc.service.exception.ObjectNotFoundException;
 @Service
 public class ClienteService {
 
-	@Autowired
-	private ClienteRepository repository;
+    @Autowired
+    private ClienteRepository repository;
 
-	public Cliente find(Long id) {
-		Optional<Cliente> cliente = repository.findById(id);
-		return cliente.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! ID: " + id + ", Tipo: " + Cliente.class.getName()));
-	}
+    public Cliente find(Long id) {
+        Optional<Cliente> cliente = repository.findById(id);
+        return cliente.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id + ", Tipo: " + Cliente.class.getName()));
+    }
 }

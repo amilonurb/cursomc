@@ -14,12 +14,12 @@ import br.com.brlima.cursomc.service.ClienteService;
 @RequestMapping(value = "clientes")
 public class ClienteRest {
 
-	@Autowired
-	private ClienteService service;
+    @Autowired
+    private ClienteService service;
 
-	@GetMapping("/{id}")
-	public ResponseEntity<Cliente> find(@PathVariable("id") Long id) {
-		Cliente cliente = service.find(id);
-		return ResponseEntity.ok().body(cliente);
-	}
+    @GetMapping("/{id}")
+    public ResponseEntity<Cliente> find(@PathVariable("id") Long id) {
+        Cliente cliente = service.find(id);
+        return ResponseEntity.ok().body(cliente);
+    }
 }

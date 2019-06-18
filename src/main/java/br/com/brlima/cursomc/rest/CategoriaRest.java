@@ -21,32 +21,32 @@ import br.com.brlima.cursomc.service.CategoriaService;
 @RequestMapping(value = "categorias")
 public class CategoriaRest {
 
-	@Autowired
-	private CategoriaService service;
+    @Autowired
+    private CategoriaService service;
 
-	@GetMapping("/{id}")
-	public ResponseEntity<Categoria> find(@PathVariable("id") Long id) {
-		Categoria categoria = service.find(id);
-		return ResponseEntity.ok().body(categoria);
-	}
+    @GetMapping("/{id}")
+    public ResponseEntity<Categoria> find(@PathVariable("id") Long id) {
+        Categoria categoria = service.find(id);
+        return ResponseEntity.ok().body(categoria);
+    }
 
-	@PostMapping
-	public ResponseEntity<Void> insert(@RequestBody Categoria categoria) {
-		categoria = service.insert(categoria);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId()).toUri();
-		return ResponseEntity.created(uri).build();
-	}
+    @PostMapping
+    public ResponseEntity<Void> insert(@RequestBody Categoria categoria) {
+        categoria = service.insert(categoria);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
 
-	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@RequestBody Categoria categoria, @PathVariable("id") Long id) {
-		categoria.setId(id);
-		categoria = service.update(categoria);
-		return ResponseEntity.noContent().build();
-	}
-	
-	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-		service.delete(id);
-		return ResponseEntity.noContent().build();
-	}
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@RequestBody Categoria categoria, @PathVariable("id") Long id) {
+        categoria.setId(id);
+        categoria = service.update(categoria);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }
