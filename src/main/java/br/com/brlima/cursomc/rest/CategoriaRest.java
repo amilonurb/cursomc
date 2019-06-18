@@ -1,6 +1,8 @@
 package br.com.brlima.cursomc.rest;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.brlima.cursomc.dto.CategoriaDTO;
 import br.com.brlima.cursomc.model.produto.Categoria;
 import br.com.brlima.cursomc.service.CategoriaService;
 
@@ -28,6 +31,12 @@ public class CategoriaRest {
     public ResponseEntity<Categoria> find(@PathVariable("id") Long id) {
         Categoria categoria = service.find(id);
         return ResponseEntity.ok().body(categoria);
+    }
+    
+    @GetMapping
+    public ResponseEntity<List<CategoriaDTO>> findAll() {
+        List<CategoriaDTO> categoriasDTO = service.findAll().stream().map(categoria -> new CategoriaDTO(categoria)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(categoriasDTO);
     }
 
     @PostMapping

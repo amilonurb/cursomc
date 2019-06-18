@@ -1,5 +1,6 @@
 package br.com.brlima.cursomc.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class CategoriaService {
     public Categoria find(Long id) {
         Optional<Categoria> categoria = this.repository.findById(id);
         return categoria.orElseThrow(() -> new ObjectNotFoundException(String.format("Objeto não encontrado! ID: %s, Tipo: %s", id, Categoria.class.getSimpleName())));
+    }
+    
+    public List<Categoria> findAll() {
+        return repository.findAll();
     }
 
     public Categoria insert(Categoria categoria) {
