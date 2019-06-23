@@ -66,7 +66,11 @@ public class CategoriaRest {
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<CategoriaDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "linePerPage", defaultValue = "24") Integer linesPerPage, @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy, @RequestParam(value = "sortDirection", defaultValue = "ASC") String sortDirection) {
+    public ResponseEntity<Page<CategoriaDTO>> findPage(//
+            @RequestParam(value = "page", defaultValue = "0") Integer page, //
+            @RequestParam(value = "linePerPage", defaultValue = "24") Integer linesPerPage, //
+            @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy, //
+            @RequestParam(value = "sortDirection", defaultValue = "ASC") String sortDirection) {
         Page<CategoriaDTO> categoriasDTO = service.findPage(page, linesPerPage, orderBy, sortDirection).map(categoria -> new CategoriaDTO(categoria));
         return ResponseEntity.ok().body(categoriasDTO);
     }
