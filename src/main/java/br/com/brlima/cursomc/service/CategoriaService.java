@@ -37,8 +37,9 @@ public class CategoriaService {
     }
 
     public Categoria update(Categoria categoria) {
-        this.find(categoria.getId());
-        return this.repository.save(categoria);
+        Categoria categoriaDB = this.find(categoria.getId());
+        updateFromData(categoriaDB, categoria);
+        return this.repository.save(categoriaDB);
     }
 
     public void delete(Long id) {
@@ -51,8 +52,9 @@ public class CategoriaService {
     }
 
     /**
-     * Esquema de paginação de recursos. 
-     * Ao invés de trazer todos os objetos de uma vez, traz-se em blocos (páginas)
+     * Esquema de paginação de recursos.
+     * 
+     * Ao invés de trazer todos os objetos de uma vez, traz-se em blocos (páginas).
      */
     public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String sortDirection) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(sortDirection), orderBy);
@@ -62,5 +64,9 @@ public class CategoriaService {
     public Categoria fromDTO(CategoriaDTO dto) {
         Categoria categoria = new Categoria(dto.getId(), dto.getNome());
         return categoria;
+    }
+
+    private void updateFromData(Categoria current, Categoria data) {
+        current.setNome(data.getNome());
     }
 }
