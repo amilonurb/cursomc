@@ -1,22 +1,19 @@
 package br.com.brlima.cursomc.rest.exception;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import br.com.brlima.cursomc.service.exception.DataIntegrityException;
 import br.com.brlima.cursomc.service.exception.ObjectNotFoundException;
 
-/**
- * Tratador de exceções REST
- * 
- * Evita que exceções tenham que ser tratadas na camada REST, deixando a api "limpa".
- * 
- * Basta dar um throw new MinhaExcecao() que a resposta da requisição HTTP será tratada nesta classe. 
- */
 @ControllerAdvice
 public class RestExceptionHandler {
 
@@ -30,5 +27,15 @@ public class RestExceptionHandler {
     public ResponseEntity<StandardError> handleDataIntegrity(DataIntegrityException exception, HttpServletRequest request) {
         StandardError error = new StandardError(HttpStatus.BAD_REQUEST.value(), exception.getMessage(), System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<StandardError> handleValidation(MethodArgumentNotValidException exception, HttpServletRequest request) {
+        ValidationError validationError = new ValidationError(HttpStatus.BAD_REQUEST.value(), "Erro de Validação", System.currentTimeMillis());
+
+        List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
+        fieldErrors.stream().forEach(fe -> validationError.addValidationMessage(fe.getField(), fe.getDefaultMessage()));
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(validationError);
     }
 }
