@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.brlima.cursomc.dto.CategoriaDTO;
 import br.com.brlima.cursomc.model.produto.Categoria;
+import br.com.brlima.cursomc.model.produto.dto.CategoriaDTO;
 import br.com.brlima.cursomc.service.CategoriaService;
 
 @RestController
@@ -60,13 +60,9 @@ public class CategoriaRest {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
-    
+
     @GetMapping("/page")
-    public ResponseEntity<Page<CategoriaDTO>> findPage(
-            @RequestParam(value = "page", defaultValue="0") Integer page, 
-            @RequestParam(value = "linePerPage", defaultValue="24") Integer linesPerPage, 
-            @RequestParam(value = "orderBy", defaultValue="nome") String orderBy, 
-            @RequestParam(value = "sortDirection", defaultValue="ASC") String sortDirection) {
+    public ResponseEntity<Page<CategoriaDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "linePerPage", defaultValue = "24") Integer linesPerPage, @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy, @RequestParam(value = "sortDirection", defaultValue = "ASC") String sortDirection) {
         Page<CategoriaDTO> categoriasDTO = service.findPage(page, linesPerPage, orderBy, sortDirection).map(categoria -> new CategoriaDTO(categoria));
         return ResponseEntity.ok().body(categoriasDTO);
     }
