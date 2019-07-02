@@ -3,6 +3,8 @@ package br.com.brlima.cursomc.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -16,7 +18,6 @@ import br.com.brlima.cursomc.model.cliente.dto.ClienteDTO;
 import br.com.brlima.cursomc.model.cliente.dto.ClienteNewDTO;
 import br.com.brlima.cursomc.model.localizacao.Cidade;
 import br.com.brlima.cursomc.model.localizacao.Endereco;
-import br.com.brlima.cursomc.repository.CidadeRepository;
 import br.com.brlima.cursomc.repository.ClienteRepository;
 import br.com.brlima.cursomc.repository.EnderecoRepository;
 import br.com.brlima.cursomc.service.exception.DataIntegrityException;
@@ -27,9 +28,6 @@ public class ClienteService {
 
     @Autowired
     private ClienteRepository clienteRepository;
-
-    @Autowired
-    private CidadeRepository cidadeRepository;
 
     @Autowired
     private EnderecoRepository enderecoRepository;
@@ -43,6 +41,7 @@ public class ClienteService {
         return clienteRepository.findAll();
     }
 
+    @Transactional
     public Cliente insert(Cliente cliente) {
         cliente.setId(null);
         cliente = this.clienteRepository.save(cliente);
@@ -61,7 +60,7 @@ public class ClienteService {
         try {
             this.clienteRepository.deleteById(id);
         } catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityException("Não é possível excluir um Cliente que possui entidades relacionadas");
+            throw new DataIntegrityException("Não é possível excluir porque há pedidos relacionados");
         }
     }
 
@@ -77,8 +76,10 @@ public class ClienteService {
     public Cliente fromDTO(ClienteNewDTO dto) {
         Cliente cliente = new Cliente(null, dto.getNome(), dto.getEmail(), dto.getCpfOuCnpj(), TipoCliente.toEnum(dto.getCodigoTipoCliente()));
 
-        Optional<Cidade> cidadeOpt = cidadeRepository.findById(dto.getCidadeId());
-        Cidade cidade = cidadeOpt.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + dto.getCidadeId() + ", Tipo: " + Cidade.class.getName()));
+        // Optional<Cidade> cidadeOpt = cidadeRepository.findById(dto.getCidadeId());
+        // Cidade cidade = cidadeOpt.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + dto.getCidadeId() + ", Tipo: " + Cidade.class.getName()));
+
+        Cidade cidade = new Cidade(dto.getCidadeId(), null, null);
 
         Endereco endereco = new Endereco(null, dto.getLogradouro(), dto.getNumero(), dto.getComplemento(), dto.getBairro(), dto.getCep(), cidade, cliente);
         cliente.getEnderecos().add(endereco);
