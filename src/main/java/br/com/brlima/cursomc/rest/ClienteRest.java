@@ -22,6 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.brlima.cursomc.model.cliente.Cliente;
 import br.com.brlima.cursomc.model.cliente.dto.ClienteDTO;
+import br.com.brlima.cursomc.model.cliente.dto.ClienteNewDTO;
 import br.com.brlima.cursomc.service.ClienteService;
 
 @RestController
@@ -43,14 +44,22 @@ public class ClienteRest {
         return ResponseEntity.ok().body(clientesDTO);
     }
 
-    @PostMapping
+    /*@PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO clienteDTO) {
         Cliente cliente = service.fromDTO(clienteDTO);
         cliente = service.insert(cliente);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId()).toUri();
         return ResponseEntity.created(uri).build();
-    }
+    }*/
 
+    @PostMapping
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO clienteDTO) {
+        Cliente cliente = service.fromDTO(clienteDTO);
+        cliente = service.insert(cliente);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+    }
+    
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO clienteDTO, @PathVariable("id") Long id) {
         Cliente cliente = service.fromDTO(clienteDTO);
