@@ -8,10 +8,12 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import br.com.brlima.cursomc.model.cliente.Cliente;
+import br.com.brlima.cursomc.service.validation.ClienteUpdate;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@ClienteUpdate
 @NoArgsConstructor
 @Getter
 @Setter
