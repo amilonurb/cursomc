@@ -3,9 +3,14 @@ package br.com.brlima.cursomc.util;
 /**
  * Validador de CPF e CNPJ
  * 
- * @author Adriano Rocha {@link https://github.com/adrianoluis} Source: {@link https://gist.github.com/adrianoluis/5043397d378ae506d87366abb0ab4e30}
+ * @author Adriano Rocha {@link https://github.com/adrianoluis}
+ * @souce Source: {@link https://gist.github.com/adrianoluis/5043397d378ae506d87366abb0ab4e30}
  */
 public class DocumentUtils {
+
+    private DocumentUtils() {
+        // Construtor Padrão
+    }
 
     // CPF
     private static final int[] weightSsn = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };

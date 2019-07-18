@@ -44,13 +44,9 @@ public class ClienteRest {
         return ResponseEntity.ok().body(clientesDTO);
     }
 
-    /*@PostMapping
-    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO clienteDTO) {
-        Cliente cliente = service.fromDTO(clienteDTO);
-        cliente = service.insert(cliente);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId()).toUri();
-        return ResponseEntity.created(uri).build();
-    }*/
+    /*
+     * @PostMapping public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO clienteDTO) { Cliente cliente = service.fromDTO(clienteDTO); cliente = service.insert(cliente); URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId()).toUri(); return ResponseEntity.created(uri).build(); }
+     */
 
     @PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO clienteDTO) {
@@ -59,7 +55,7 @@ public class ClienteRest {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
-    
+
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO clienteDTO, @PathVariable("id") Long id) {
         Cliente cliente = service.fromDTO(clienteDTO);
@@ -80,7 +76,7 @@ public class ClienteRest {
             @RequestParam(value = "linePerPage", defaultValue = "24") Integer linesPerPage, //
             @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy, //
             @RequestParam(value = "sortDirection", defaultValue = "ASC") String sortDirection) {
-        Page<ClienteDTO> clientesDTO = service.findPage(page, linesPerPage, orderBy, sortDirection).map(cliente -> new ClienteDTO(cliente));
+        Page<ClienteDTO> clientesDTO = service.findPage(page, linesPerPage, orderBy, sortDirection).map(ClienteDTO::new);
         return ResponseEntity.ok().body(clientesDTO);
     }
 }
