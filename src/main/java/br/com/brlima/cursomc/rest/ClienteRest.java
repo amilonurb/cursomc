@@ -26,7 +26,7 @@ import br.com.brlima.cursomc.model.cliente.dto.ClienteNewDTO;
 import br.com.brlima.cursomc.service.ClienteService;
 
 @RestController
-@RequestMapping(value = "clientes")
+@RequestMapping("/clientes")
 public class ClienteRest {
 
     @Autowired

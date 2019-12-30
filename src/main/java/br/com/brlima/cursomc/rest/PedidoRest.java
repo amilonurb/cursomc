@@ -11,7 +11,7 @@ import br.com.brlima.cursomc.model.pedido.Pedido;
 import br.com.brlima.cursomc.service.PedidoService;
 
 @RestController
-@RequestMapping(value = "pedidos")
+@RequestMapping("/pedidos")
 public class PedidoRest {
 
     @Autowired

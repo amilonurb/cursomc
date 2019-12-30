@@ -25,7 +25,7 @@ import br.com.brlima.cursomc.model.produto.dto.CategoriaDTO;
 import br.com.brlima.cursomc.service.CategoriaService;
 
 @RestController
-@RequestMapping(value = "categorias")
+@RequestMapping("/categorias")
 public class CategoriaRest {
 
     @Autowired
