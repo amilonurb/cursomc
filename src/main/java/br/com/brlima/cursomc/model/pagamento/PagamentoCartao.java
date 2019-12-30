@@ -2,6 +2,8 @@ package br.com.brlima.cursomc.model.pagamento;
 
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import br.com.brlima.cursomc.model.pedido.Pedido;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@JsonTypeName("pagamentoCartao")
 public class PagamentoCartao extends Pagamento {
 
     private static final long serialVersionUID = 1L;

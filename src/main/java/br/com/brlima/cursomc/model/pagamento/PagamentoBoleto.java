@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import br.com.brlima.cursomc.model.pedido.Pedido;
 import lombok.Data;
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@JsonTypeName("pagamentoBoleto")
 public class PagamentoBoleto extends Pagamento {
 
     private static final long serialVersionUID = 1L;
