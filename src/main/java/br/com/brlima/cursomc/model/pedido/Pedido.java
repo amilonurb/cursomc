@@ -1,6 +1,7 @@
 package br.com.brlima.cursomc.model.pedido;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -59,5 +60,9 @@ public class Pedido implements Serializable {
         this.data = data;
         this.cliente = cliente;
         this.enderecoEntrega = enderecoEntrega;
+    }
+
+    public BigDecimal getValorTotal() {
+        return itens.stream().map(ItemPedido::getSubtotal).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

@@ -46,4 +46,9 @@ public class ItemPedido implements Serializable {
     public Produto getProduto() {
         return this.id.getProduto();
     }
+
+    public BigDecimal getSubtotal() {
+        // quantidade * (preco - desconto)
+        return BigDecimal.valueOf(this.quantidade).multiply(this.preco.subtract(this.desconto));
+    }
 }
