@@ -76,9 +76,6 @@ public class ClienteService {
     public Cliente fromDTO(ClienteNewDTO dto) {
         Cliente cliente = new Cliente(null, dto.getNome(), dto.getEmail(), dto.getCpfOuCnpj(), TipoCliente.toEnum(dto.getCodigoTipoCliente()));
 
-        // Optional<Cidade> cidadeOpt = cidadeRepository.findById(dto.getCidadeId());
-        // Cidade cidade = cidadeOpt.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + dto.getCidadeId() + ", Tipo: " + Cidade.class.getName()));
-
         Cidade cidade = new Cidade(dto.getCidadeId(), null, null);
 
         Endereco endereco = new Endereco(null, dto.getLogradouro(), dto.getNumero(), dto.getComplemento(), dto.getBairro(), dto.getCep(), cidade, cliente);

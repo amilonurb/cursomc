@@ -12,12 +12,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/**
- * Representa o objeto de criação de um Cliente -> Dados do Cliente + Telefone(s) + Endereço(s)
- * 
- * @author brlima
- *
- */
 @ClienteInsert
 @NoArgsConstructor
 @Getter

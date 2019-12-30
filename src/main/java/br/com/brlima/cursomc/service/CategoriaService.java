@@ -50,12 +50,7 @@ public class CategoriaService {
             throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
         }
     }
-
-    /**
-     * Esquema de paginação de recursos.
-     * 
-     * Ao invés de trazer todos os objetos de uma vez, traz-se em blocos (páginas).
-     */
+    
     public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String sortDirection) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(sortDirection), orderBy);
         return repository.findAll(pageRequest);

@@ -26,6 +26,7 @@ public class Categoria implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
+
     private String nome;
 
     @ManyToMany(mappedBy = "categorias")

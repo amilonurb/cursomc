@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -55,13 +56,8 @@ public class Produto implements Serializable {
         this.preco = preco;
     }
 
-    /**
-     * Implementa a associação "Produto conhece os seus pedidos"
-     */
     @JsonIgnore
     public List<Pedido> getPedidos() {
-        List<Pedido> pedidos = new ArrayList<>();
-        itens.forEach(item -> pedidos.add(item.getPedido()));
-        return pedidos;
+        return itens.stream().map(ItemPedido::getPedido).collect(Collectors.toList());
     }
 }
