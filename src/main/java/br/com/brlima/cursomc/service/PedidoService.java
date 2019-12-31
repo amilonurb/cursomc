@@ -34,6 +34,9 @@ public class PedidoService {
     @Autowired
     private ProdutoService produtoService;
 
+    @Autowired
+    private ClienteService clienteService;
+
     public Pedido find(Long id) {
         Optional<Pedido> pedido = repository.findById(id);
         return pedido.orElseThrow(() -> new ObjectNotFoundException(
@@ -44,6 +47,9 @@ public class PedidoService {
 
         pedido.setId(null);
         pedido.setData(LocalDateTime.now());
+
+        pedido.setCliente(clienteService.find(pedido.getCliente().getId()));
+
         pedido.getPagamento().setEstadoPagamento(EstadoPagamento.PENDENTE);
         pedido.getPagamento().setPedido(pedido);
 
@@ -58,6 +64,7 @@ public class PedidoService {
 
         for (ItemPedido item : pedido.getItens()) {
             item.setDesconto(BigDecimal.ZERO);// Por enquanto não é dado desconto
+            item.setProduto(produtoService.find(item.getProduto().getId()));
             item.setPreco(produtoService.find(item.getProduto().getId()).getPreco());
             item.setPedido(pedido);
         }
