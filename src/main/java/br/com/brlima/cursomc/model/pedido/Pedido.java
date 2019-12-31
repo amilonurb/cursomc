@@ -2,8 +2,11 @@ package br.com.brlima.cursomc.model.pedido;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -64,5 +67,32 @@ public class Pedido implements Serializable {
 
     public BigDecimal getValorTotal() {
         return itens.stream().map(ItemPedido::getSubtotal).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        final NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
+        builder.append("Pedido número: ");
+        builder.append(this.getId());
+
+        builder.append("; Data: ");
+        builder.append(dtf.format(this.getData()));
+
+        builder.append("; Cliente: ");
+        builder.append(this.getCliente().getNome());
+
+        builder.append("; Situação do pagamento: ");
+        builder.append(this.getPagamento().getEstadoPagamento().getNome());
+
+        builder.append("\nDetalhes\n");
+        itens.forEach(item -> builder.append(item.toString()));
+
+        builder.append("; Valor total: ");
+        builder.append(nf.format(this.getValorTotal()));
+
+        return builder.toString();
     }
 }

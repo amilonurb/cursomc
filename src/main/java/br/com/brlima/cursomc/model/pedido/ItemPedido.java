@@ -2,6 +2,8 @@ package br.com.brlima.cursomc.model.pedido;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -58,5 +60,27 @@ public class ItemPedido implements Serializable {
     public BigDecimal getSubtotal() {
         // quantidade * (preco - desconto)
         return BigDecimal.valueOf(this.quantidade).multiply(this.preco.subtract(this.desconto));
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        final NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+
+        builder.append("Produto: ");
+        builder.append(this.getProduto().getNome());
+        
+        builder.append("; Quantidade: ");
+        builder.append(this.getQuantidade());
+        
+        builder.append("; Preço unitário: ");
+        builder.append(nf.format(this.getPreco()));
+        
+        builder.append("; Subtotal: ");
+        builder.append(nf.format(this.getSubtotal()));
+        
+        builder.append("\n");
+        
+        return builder.toString();
     }
 }
