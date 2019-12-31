@@ -15,6 +15,7 @@ import br.com.brlima.cursomc.repository.ItemPedidoRepository;
 import br.com.brlima.cursomc.repository.PagamentoRepository;
 import br.com.brlima.cursomc.repository.PedidoRepository;
 import br.com.brlima.cursomc.service.exception.ObjectNotFoundException;
+import br.com.brlima.cursomc.service.mail.EmailService;
 
 @Service
 public class PedidoService {
@@ -30,6 +31,9 @@ public class PedidoService {
 
     @Autowired
     private BoletoService boletoService;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private ProdutoService produtoService;
@@ -70,6 +74,8 @@ public class PedidoService {
         }
 
         itemPedidoRepository.saveAll(pedido.getItens());
+
+        emailService.sendOrderConfirmationMail(pedido);
 
         return pedido;
     }
