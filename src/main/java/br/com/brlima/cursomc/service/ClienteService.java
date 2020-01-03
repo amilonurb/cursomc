@@ -41,6 +41,10 @@ public class ClienteService {
         return cliente.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id + ", Tipo: " + Cliente.class.getName()));
     }
 
+    public Cliente findByEmail(String email) {
+        return clienteRepository.findByEmail(email);
+    }
+
     public List<Cliente> findAll() {
         return clienteRepository.findAll();
     }
