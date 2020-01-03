@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.brlima.cursomc.model.cliente.Cliente;
 import br.com.brlima.cursomc.model.enums.EstadoPagamento;
+import br.com.brlima.cursomc.model.enums.Perfil;
 import br.com.brlima.cursomc.model.enums.TipoCliente;
 import br.com.brlima.cursomc.model.localizacao.Cidade;
 import br.com.brlima.cursomc.model.localizacao.Endereco;
@@ -119,11 +120,18 @@ public class DBService {
 
         Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOA_FISICA, passwordEncoder.encode("SenhaDeTeste123"));
 
+        Cliente cli2 = new Cliente(null, "João Silva", "jao@gmail.com", "31628382740", TipoCliente.PESSOA_FISICA, passwordEncoder.encode("SenhaDeTeste123"));
+
         Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834", c1, cli1);
         Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", c2, cli1);
+        Endereco e3 = new Endereco(null, "Avenida Gramas", "2016", null, "Centro", "38777012", c2, cli2);
 
         cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
         cli1.getTelefones().addAll(Arrays.asList("27363323", "93838993"));
+        
+        cli2.getEnderecos().add(e3);
+        cli2.getTelefones().addAll(Arrays.asList("93883321", "34252625"));
+        cli2.addPerfil(Perfil.ADMIN);
 
         DateTimeFormatter dtfSimple = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter dtfFull = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
@@ -155,12 +163,15 @@ public class DBService {
         produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
 
         estadoRepository.saveAll(Arrays.asList(est1, est2));
+
         cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 
-        clienteRepository.save(cli1);
-        enderecoRepository.saveAll(Arrays.asList(e1, e2));
+        clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+        
+        enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
 
         pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+        
         pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 
         itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
