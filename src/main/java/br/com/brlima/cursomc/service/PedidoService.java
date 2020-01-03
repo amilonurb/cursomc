@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.brlima.cursomc.model.pagamento.EstadoPagamento;
+import br.com.brlima.cursomc.model.enums.EstadoPagamento;
 import br.com.brlima.cursomc.model.pagamento.PagamentoBoleto;
 import br.com.brlima.cursomc.model.pedido.ItemPedido;
 import br.com.brlima.cursomc.model.pedido.Pedido;

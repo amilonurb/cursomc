@@ -1,4 +1,4 @@
-package br.com.brlima.cursomc.model.pagamento;
+package br.com.brlima.cursomc.model.enums;
 
 public enum EstadoPagamento {
 

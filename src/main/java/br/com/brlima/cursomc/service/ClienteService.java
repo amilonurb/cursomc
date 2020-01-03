@@ -14,9 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.brlima.cursomc.model.cliente.Cliente;
-import br.com.brlima.cursomc.model.cliente.TipoCliente;
 import br.com.brlima.cursomc.model.cliente.dto.ClienteDTO;
 import br.com.brlima.cursomc.model.cliente.dto.ClienteNewDTO;
+import br.com.brlima.cursomc.model.enums.TipoCliente;
 import br.com.brlima.cursomc.model.localizacao.Cidade;
 import br.com.brlima.cursomc.model.localizacao.Endereco;
 import br.com.brlima.cursomc.repository.ClienteRepository;

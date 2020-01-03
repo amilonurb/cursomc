@@ -9,8 +9,8 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import br.com.brlima.cursomc.model.cliente.Cliente;
-import br.com.brlima.cursomc.model.cliente.TipoCliente;
 import br.com.brlima.cursomc.model.cliente.dto.ClienteNewDTO;
+import br.com.brlima.cursomc.model.enums.TipoCliente;
 import br.com.brlima.cursomc.repository.ClienteRepository;
 import br.com.brlima.cursomc.rest.exception.FieldMessage;
 import br.com.brlima.cursomc.util.DocumentUtils;

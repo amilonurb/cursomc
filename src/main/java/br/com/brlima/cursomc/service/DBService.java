@@ -11,11 +11,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.brlima.cursomc.model.cliente.Cliente;
-import br.com.brlima.cursomc.model.cliente.TipoCliente;
+import br.com.brlima.cursomc.model.enums.EstadoPagamento;
+import br.com.brlima.cursomc.model.enums.TipoCliente;
 import br.com.brlima.cursomc.model.localizacao.Cidade;
 import br.com.brlima.cursomc.model.localizacao.Endereco;
 import br.com.brlima.cursomc.model.localizacao.Estado;
-import br.com.brlima.cursomc.model.pagamento.EstadoPagamento;
 import br.com.brlima.cursomc.model.pagamento.Pagamento;
 import br.com.brlima.cursomc.model.pagamento.PagamentoBoleto;
 import br.com.brlima.cursomc.model.pagamento.PagamentoCartao;

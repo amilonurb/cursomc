@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.brlima.cursomc.model.enums.TipoCliente;
 import br.com.brlima.cursomc.model.localizacao.Endereco;
 import br.com.brlima.cursomc.model.pedido.Pedido;
 import lombok.Data;

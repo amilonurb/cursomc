@@ -1,4 +1,4 @@
-package br.com.brlima.cursomc.model.cliente;
+package br.com.brlima.cursomc.model.enums;
 
 public enum TipoCliente {
 

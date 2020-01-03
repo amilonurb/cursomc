@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+import br.com.brlima.cursomc.model.enums.EstadoPagamento;
 import br.com.brlima.cursomc.model.pedido.Pedido;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

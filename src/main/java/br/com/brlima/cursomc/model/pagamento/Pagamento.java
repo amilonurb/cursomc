@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import br.com.brlima.cursomc.model.enums.EstadoPagamento;
 import br.com.brlima.cursomc.model.pedido.Pedido;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
