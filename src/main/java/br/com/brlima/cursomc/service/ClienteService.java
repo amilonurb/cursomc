@@ -13,14 +13,18 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.com.brlima.cursomc.config.security.UserService;
+import br.com.brlima.cursomc.config.security.UserSpringSecurity;
 import br.com.brlima.cursomc.model.cliente.Cliente;
 import br.com.brlima.cursomc.model.cliente.dto.ClienteDTO;
 import br.com.brlima.cursomc.model.cliente.dto.ClienteNewDTO;
+import br.com.brlima.cursomc.model.enums.Perfil;
 import br.com.brlima.cursomc.model.enums.TipoCliente;
 import br.com.brlima.cursomc.model.localizacao.Cidade;
 import br.com.brlima.cursomc.model.localizacao.Endereco;
 import br.com.brlima.cursomc.repository.ClienteRepository;
 import br.com.brlima.cursomc.repository.EnderecoRepository;
+import br.com.brlima.cursomc.service.exception.AuthorizationException;
 import br.com.brlima.cursomc.service.exception.DataIntegrityException;
 import br.com.brlima.cursomc.service.exception.ObjectNotFoundException;
 
@@ -37,6 +41,12 @@ public class ClienteService {
     private EnderecoRepository enderecoRepository;
 
     public Cliente find(Long id) {
+
+        UserSpringSecurity user = UserService.authenticated();
+        if (user == null || !user.hasHole(Perfil.ADMIN) && !id.equals(user.getId())) {
+            throw new AuthorizationException("Acesso negado");
+        }
+
         Optional<Cliente> cliente = clienteRepository.findById(id);
         return cliente.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id + ", Tipo: " + Cliente.class.getName()));
     }
