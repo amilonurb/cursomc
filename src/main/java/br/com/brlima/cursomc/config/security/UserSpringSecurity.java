@@ -26,7 +26,9 @@ public class UserSpringSecurity implements UserDetails {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.authorities = perfis.stream().map(p -> new SimpleGrantedAuthority(p.getNome())).collect(Collectors.toList());
+        this.authorities = perfis.stream()//
+                .map(p -> new SimpleGrantedAuthority(p.getNome()))//
+                .collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -66,5 +68,9 @@ public class UserSpringSecurity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean hasHole(Perfil perfil) {
+        return this.authorities.contains(new SimpleGrantedAuthority(perfil.getNome()));
     }
 }
