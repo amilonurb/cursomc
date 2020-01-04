@@ -11,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import br.com.brlima.cursomc.service.exception.AuthorizationException;
 import br.com.brlima.cursomc.service.exception.DataIntegrityException;
 import br.com.brlima.cursomc.service.exception.ObjectNotFoundException;
 
@@ -37,5 +38,11 @@ public class RestExceptionHandler {
         fieldErrors.stream().forEach(fe -> validationError.addValidationMessage(fe.getField(), fe.getDefaultMessage()));
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(validationError);
+    }
+
+    @ExceptionHandler(AuthorizationException.class)
+    public ResponseEntity<StandardError> handleAuthorization(AuthorizationException exception, HttpServletRequest request) {
+        StandardError error = new StandardError(HttpStatus.FORBIDDEN.value(), exception.getMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
     }
 }
