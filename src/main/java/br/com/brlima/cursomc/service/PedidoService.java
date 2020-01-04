@@ -5,8 +5,14 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import br.com.brlima.cursomc.config.security.UserService;
+import br.com.brlima.cursomc.config.security.UserSpringSecurity;
+import br.com.brlima.cursomc.model.cliente.Cliente;
 import br.com.brlima.cursomc.model.enums.EstadoPagamento;
 import br.com.brlima.cursomc.model.pagamento.PagamentoBoleto;
 import br.com.brlima.cursomc.model.pedido.ItemPedido;
@@ -14,6 +20,7 @@ import br.com.brlima.cursomc.model.pedido.Pedido;
 import br.com.brlima.cursomc.repository.ItemPedidoRepository;
 import br.com.brlima.cursomc.repository.PagamentoRepository;
 import br.com.brlima.cursomc.repository.PedidoRepository;
+import br.com.brlima.cursomc.service.exception.AuthorizationException;
 import br.com.brlima.cursomc.service.exception.ObjectNotFoundException;
 import br.com.brlima.cursomc.service.mail.EmailService;
 
@@ -78,5 +85,18 @@ public class PedidoService {
         emailService.sendOrderConfirmationHtmlEmail(pedido);
 
         return pedido;
+    }
+
+    public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String sortDirection) {
+
+        UserSpringSecurity user = UserService.authenticated();
+        if (user == null) {
+            throw new AuthorizationException("Acesso negado");
+        }
+
+        Cliente cliente = clienteService.find(user.getId());
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(sortDirection), orderBy);
+
+        return repository.findByCliente(cliente, pageRequest);
     }
 }
