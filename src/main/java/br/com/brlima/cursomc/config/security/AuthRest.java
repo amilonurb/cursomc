@@ -25,6 +25,7 @@ public class AuthRest {
         UserSpringSecurity user = UserService.authenticated();
         String newToken = jwtUtils.generateToken(user.getUsername());
         response.addHeader("Authorization", "Bearer " + newToken);
+        response.addHeader("access-control-expose-headers", "Authorization");
         return ResponseEntity.noContent().build();
     }
 
