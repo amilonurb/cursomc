@@ -13,8 +13,8 @@ import org.springframework.web.servlet.HandlerMapping;
 
 import br.com.brlima.cursomc.model.cliente.Cliente;
 import br.com.brlima.cursomc.model.cliente.dto.ClienteDTO;
-import br.com.brlima.cursomc.repository.ClienteRepository;
 import br.com.brlima.cursomc.rest.exception.FieldMessage;
+import br.com.brlima.cursomc.service.ClienteService;
 
 public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
 
@@ -22,14 +22,14 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
     private HttpServletRequest request;
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private ClienteService clienteService;
 
     @SuppressWarnings("unchecked")
     @Override
     public boolean isValid(ClienteDTO dto, ConstraintValidatorContext context) {
         List<FieldMessage> erros = new ArrayList<>();
 
-        Cliente cliente = clienteRepository.findByEmail(dto.getEmail());
+        Cliente cliente = clienteService.findByEmail(dto.getEmail());
 
         Map<String, String> atributos = (Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
         Long uriID = Long.parseLong(atributos.get("id"));
@@ -40,8 +40,8 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
 
         erros.forEach(fm -> {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate(fm.getErrorMessage())
-                    .addPropertyNode(fm.getFieldName())
+            context.buildConstraintViolationWithTemplate(fm.getErrorMessage())//
+                    .addPropertyNode(fm.getFieldName())//
                     .addConstraintViolation();
         });
         return erros.isEmpty();

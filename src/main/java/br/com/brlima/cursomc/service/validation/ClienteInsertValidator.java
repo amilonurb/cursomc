@@ -11,14 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import br.com.brlima.cursomc.model.cliente.Cliente;
 import br.com.brlima.cursomc.model.cliente.dto.ClienteNewDTO;
 import br.com.brlima.cursomc.model.enums.TipoCliente;
-import br.com.brlima.cursomc.repository.ClienteRepository;
 import br.com.brlima.cursomc.rest.exception.FieldMessage;
+import br.com.brlima.cursomc.service.ClienteService;
 import br.com.brlima.cursomc.util.DocumentUtils;
 
 public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private ClienteService clienteService;
     
     @Override
     public boolean isValid(ClienteNewDTO dto, ConstraintValidatorContext context) {
@@ -32,7 +32,7 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
             erros.add(new FieldMessage("cpfOuCnpj", "CNPJ inválido"));
         }
         
-        Cliente cliente = clienteRepository.findByEmail(dto.getEmail());
+        Cliente cliente = clienteService.findByEmail(dto.getEmail());
         if (cliente != null) {
             erros.add(new FieldMessage("email", "Email já existente"));
         }

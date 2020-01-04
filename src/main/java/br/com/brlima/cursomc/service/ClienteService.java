@@ -41,7 +41,6 @@ public class ClienteService {
     private EnderecoRepository enderecoRepository;
 
     public Cliente find(Long id) {
-
         UserSpringSecurity user = UserService.authenticated();
         if (user == null || !user.hasHole(Perfil.ADMIN) && !id.equals(user.getId())) {
             throw new AuthorizationException("Acesso negado");
@@ -52,7 +51,13 @@ public class ClienteService {
     }
 
     public Cliente findByEmail(String email) {
-        return clienteRepository.findByEmail(email);
+        UserSpringSecurity user = UserService.authenticated();
+        if (user == null || !user.hasHole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+            throw new AuthorizationException("Acesso negado");
+        }
+
+        Optional<Cliente> cliente = clienteRepository.findByEmail(email);
+        return cliente.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + user.getId() + ", Tipo: " + Cliente.class.getName()));
     }
 
     public List<Cliente> findAll() {
