@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import br.com.brlima.cursomc.model.cliente.Cliente;
 import br.com.brlima.cursomc.model.pedido.Pedido;
 
 public abstract class AbstractEmailService implements EmailService {
@@ -55,7 +56,7 @@ public abstract class AbstractEmailService implements EmailService {
             sendHtmlEmail(message);
         } catch (MessagingException e) {
             sendOrderConfirmationMail(pedido);
-        }        
+        }
     }
 
     protected MimeMessage prepareMimeMessageFromPedido(Pedido pedido) throws MessagingException {
@@ -67,5 +68,21 @@ public abstract class AbstractEmailService implements EmailService {
         helper.setSentDate(new Date(System.currentTimeMillis()));
         helper.setText(this.htmlFromTemplatePedido(pedido), true);
         return null;
+    }
+
+    @Override
+    public void sendNewPasswordEmail(Cliente cliente, String password) {
+        SimpleMailMessage mailMessage = prepareNewPasswordEmail(cliente, password);
+        this.sendEmail(mailMessage);
+    }
+
+    protected SimpleMailMessage prepareNewPasswordEmail(Cliente cliente, String password) {
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setSubject("Solicitação de nova senha");
+        mailMessage.setTo(cliente.getEmail());
+        mailMessage.setFrom(sender);
+        mailMessage.setSentDate(new Date(System.currentTimeMillis()));
+        mailMessage.setText("Nova senha: " + password);
+        return mailMessage;
     }
 }
