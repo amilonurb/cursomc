@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,18 +40,24 @@ public class CategoriaRest {
 
     @GetMapping
     public ResponseEntity<List<CategoriaDTO>> findAll() {
-        List<CategoriaDTO> categoriasDTO = service.findAll().stream().map(categoria -> new CategoriaDTO(categoria)).collect(Collectors.toList());
+        List<CategoriaDTO> categoriasDTO = service.findAll().stream().map(categoria -> new CategoriaDTO(categoria))
+                .collect(Collectors.toList());
         return ResponseEntity.ok().body(categoriasDTO);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO categoriaDTO) {
         Categoria categoria = service.fromDTO(categoriaDTO);
         categoria = service.insert(categoria);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()//
+                .path("/{id}")//
+                .buildAndExpand(categoria.getId())//
+                .toUri();
         return ResponseEntity.created(uri).build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO categoriaDTO, @PathVariable("id") Long id) {
         Categoria categoria = service.fromDTO(categoriaDTO);
@@ -59,6 +66,7 @@ public class CategoriaRest {
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         service.delete(id);
@@ -71,6 +79,7 @@ public class CategoriaRest {
             @RequestParam(value = "linePerPage", defaultValue = "24") Integer linesPerPage, //
             @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy, //
             @RequestParam(value = "sortDirection", defaultValue = "ASC") String sortDirection) {
+
         Page<CategoriaDTO> categoriasDTO = service.findPage(page, linesPerPage, orderBy, sortDirection).map(CategoriaDTO::new);
         return ResponseEntity.ok().body(categoriasDTO);
     }
