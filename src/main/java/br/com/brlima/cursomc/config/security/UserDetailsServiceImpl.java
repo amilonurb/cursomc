@@ -1,5 +1,7 @@
 package br.com.brlima.cursomc.config.security;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -7,21 +9,23 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import br.com.brlima.cursomc.model.cliente.Cliente;
-import br.com.brlima.cursomc.service.ClienteService;
+import br.com.brlima.cursomc.repository.ClienteRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private ClienteService clienteService;
+    private ClienteRepository clienteRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Cliente cliente = clienteService.findByEmail(email);
+        Optional<Cliente> clienteOptional = clienteRepository.findByEmail(email);
 
-        if (cliente == null) {
+        if (!clienteOptional.isPresent()) {
             throw new UsernameNotFoundException(email);
         }
+
+        Cliente cliente = clienteOptional.get();
 
         return new UserSpringSecurity(cliente.getId(), cliente.getEmail(), cliente.getPassword(), cliente.getPerfis());
     }
