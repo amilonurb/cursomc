@@ -24,6 +24,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.brlima.cursomc.model.produto.Categoria;
 import br.com.brlima.cursomc.model.produto.dto.CategoriaDTO;
 import br.com.brlima.cursomc.service.CategoriaService;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/categorias")
@@ -67,6 +69,9 @@ public class CategoriaRest {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
+    @ApiResponses({
+            @ApiResponse(code = 400, message = "Não é possível excluir uma categoria que possua produtos vinculados"),
+            @ApiResponse(code = 404, message = "Código inválido") })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         service.delete(id);
@@ -80,7 +85,8 @@ public class CategoriaRest {
             @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy, //
             @RequestParam(value = "sortDirection", defaultValue = "ASC") String sortDirection) {
 
-        Page<CategoriaDTO> categoriasDTO = service.findPage(page, linesPerPage, orderBy, sortDirection).map(CategoriaDTO::new);
+        Page<CategoriaDTO> categoriasDTO = service.findPage(page, linesPerPage, orderBy, sortDirection)
+                .map(CategoriaDTO::new);
         return ResponseEntity.ok().body(categoriasDTO);
     }
 }
