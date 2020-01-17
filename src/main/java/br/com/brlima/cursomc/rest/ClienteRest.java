@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.brlima.cursomc.model.cliente.Cliente;
@@ -84,5 +85,11 @@ public class ClienteRest {
             @RequestParam(value = "sortDirection", defaultValue = "ASC") String sortDirection) {
         Page<ClienteDTO> clientesDTO = service.findPage(page, linesPerPage, orderBy, sortDirection).map(ClienteDTO::new);
         return ResponseEntity.ok().body(clientesDTO);
+    }
+
+    @PostMapping("/picture")
+    public ResponseEntity<Void> uploadProfilePicture(@RequestParam("file") MultipartFile multipartFile) {
+        URI uri = service.uploadProfilePicture(multipartFile);
+        return ResponseEntity.created(uri).build();
     }
 }
