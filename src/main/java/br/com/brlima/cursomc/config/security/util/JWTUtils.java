@@ -1,4 +1,4 @@
-package br.com.brlima.cursomc.config.security;
+package br.com.brlima.cursomc.config.security.util;
 
 import java.util.Date;
 
@@ -44,7 +44,7 @@ public class JWTUtils {
 
     private Claims getClaims(String token) {
         try {
-            return Jwts.parser().setSigningKey(token.getBytes()).parseClaimsJws(token).getBody();
+            return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody();
         } catch (Exception e) {
             return null;
         }
