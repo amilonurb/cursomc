@@ -17,8 +17,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.com.brlima.cursomc.config.security.UserService;
-import br.com.brlima.cursomc.config.security.UserSpringSecurity;
+import br.com.brlima.cursomc.config.security.user.UserService;
+import br.com.brlima.cursomc.config.security.user.UserSpringSecurity;
 import br.com.brlima.cursomc.model.cliente.Cliente;
 import br.com.brlima.cursomc.model.cliente.dto.ClienteDTO;
 import br.com.brlima.cursomc.model.cliente.dto.ClienteNewDTO;

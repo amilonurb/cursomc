@@ -10,8 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import br.com.brlima.cursomc.config.security.UserService;
-import br.com.brlima.cursomc.config.security.UserSpringSecurity;
+import br.com.brlima.cursomc.config.security.user.UserService;
+import br.com.brlima.cursomc.config.security.user.UserSpringSecurity;
 import br.com.brlima.cursomc.model.cliente.Cliente;
 import br.com.brlima.cursomc.model.enums.EstadoPagamento;
 import br.com.brlima.cursomc.model.pagamento.PagamentoBoleto;
