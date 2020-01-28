@@ -1,4 +1,4 @@
-package br.com.brlima.cursomc.config.security;
+package br.com.brlima.cursomc.config.security.auth;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import br.com.brlima.cursomc.config.security.dto.EmailDTO;
+import br.com.brlima.cursomc.config.security.user.UserService;
+import br.com.brlima.cursomc.config.security.user.UserSpringSecurity;
+import br.com.brlima.cursomc.config.security.util.JWTUtils;
 
 @RestController
 @RequestMapping("/auth")

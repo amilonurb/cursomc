@@ -1,4 +1,4 @@
-package br.com.brlima.cursomc.config.security;
+package br.com.brlima.cursomc.config.security.user;
 
 import java.util.Collection;
 import java.util.Set;

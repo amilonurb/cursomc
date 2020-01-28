@@ -19,6 +19,10 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import br.com.brlima.cursomc.config.security.filter.JWTAuthenticationFilter;
+import br.com.brlima.cursomc.config.security.filter.JWTAuthorizationFilter;
+import br.com.brlima.cursomc.config.security.util.JWTUtils;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -40,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] PUBLIC_MATCHERS_POST = { "/clientes/**", "/auth/forgot/**" };
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(final HttpSecurity http) throws Exception {
 
         // Teste para liberar o acesso ao h2 no ambiente de teste
         if (Arrays.asList(environment.getActiveProfiles()).contains("test")) {
@@ -52,7 +56,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()//
                 .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()//
                 .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()//
-                .antMatchers(PUBLIC_MATCHERS).permitAll().anyRequest().authenticated();
+                .antMatchers(PUBLIC_MATCHERS).permitAll()//
+                .anyRequest()//
+                .authenticated();
 
         http.addFilter(new JWTAuthenticationFilter(this.authenticationManager(), jwtUtils));
 
@@ -62,15 +68,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(this.bCryptPasswordEncoder());
     }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
+        final CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }

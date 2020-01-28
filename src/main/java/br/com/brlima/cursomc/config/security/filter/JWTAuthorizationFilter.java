@@ -1,4 +1,4 @@
-package br.com.brlima.cursomc.config.security;
+package br.com.brlima.cursomc.config.security.filter;
 
 import java.io.IOException;
 
@@ -13,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
+import br.com.brlima.cursomc.config.security.util.JWTUtils;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
