@@ -1,20 +1,24 @@
 package br.com.brlima.cursomc.service;
 
+import java.awt.image.BufferedImage;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import br.com.brlima.cursomc.config.security.UserService;
-import br.com.brlima.cursomc.config.security.UserSpringSecurity;
+import br.com.brlima.cursomc.config.security.user.UserService;
+import br.com.brlima.cursomc.config.security.user.UserSpringSecurity;
 import br.com.brlima.cursomc.model.cliente.Cliente;
 import br.com.brlima.cursomc.model.cliente.dto.ClienteDTO;
 import br.com.brlima.cursomc.model.cliente.dto.ClienteNewDTO;
@@ -39,6 +43,18 @@ public class ClienteService {
 
     @Autowired
     private EnderecoRepository enderecoRepository;
+
+    @Autowired
+    private AmazonS3Service s3Service;
+
+    @Autowired
+    private ImageService imageService;
+
+    @Value("${img.prefix.client.profile}")
+    private String prefix;
+
+    @Value("${img.profile.size}")
+    private Integer imageSize;
 
     public Cliente find(Long id) {
         UserSpringSecurity user = UserService.authenticated();
@@ -119,5 +135,20 @@ public class ClienteService {
     private void updateFromData(Cliente current, Cliente data) {
         current.setNome(data.getNome());
         current.setEmail(data.getEmail());
+    }
+
+    public URI uploadProfilePicture(MultipartFile multipartFile) {
+        UserSpringSecurity user = UserService.authenticated();
+        if (user == null) {
+            throw new AuthorizationException("Acesso negado");
+        }
+
+        BufferedImage image = imageService.getJPGImageFromFile(multipartFile);
+        image = imageService.cropSquare(image);
+        image = imageService.resize(image, imageSize);
+
+        String filename = prefix + user.getId() + ".jpg";
+
+        return s3Service.uploadFile(filename, imageService.getInputStream(image, "jpg"), "image");
     }
 }

@@ -1,4 +1,4 @@
-package br.com.brlima.cursomc.config.security;
+package br.com.brlima.cursomc.config.security.filter;
 
 import java.io.IOException;
 

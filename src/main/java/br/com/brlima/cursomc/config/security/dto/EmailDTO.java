@@ -1,4 +1,4 @@
-package br.com.brlima.cursomc.config.security;
+package br.com.brlima.cursomc.config.security.dto;
 
 import java.io.Serializable;
 
