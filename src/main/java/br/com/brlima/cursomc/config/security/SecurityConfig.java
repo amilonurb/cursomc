@@ -44,16 +44,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] PUBLIC_MATCHERS_POST = { "/clientes/**", "/auth/forgot/**" };
 
+    private static final String[] SWAGGER_PATHS = { "/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**" };
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         // Configuração para liberar os caminhos do Swagger
-        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**",
-                "/swagger-ui.html", "/webjars/**");
+        web.ignoring().antMatchers(SWAGGER_PATHS);
     }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-
         // Teste para liberar o acesso ao h2 no ambiente de teste
         if (Arrays.asList(environment.getActiveProfiles()).contains("test")) {
             http.headers().frameOptions().disable();
@@ -61,11 +61,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.cors().and().csrf().disable();
 
-        http.authorizeRequests()//
-                .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()//
-                .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()//
-                .antMatchers(PUBLIC_MATCHERS).permitAll()//
-                .anyRequest()//
+        http.authorizeRequests()
+                .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
+                .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
+                .antMatchers(PUBLIC_MATCHERS).permitAll()
+                .anyRequest()
                 .authenticated();
 
         http.addFilter(new JWTAuthenticationFilter(this.authenticationManager(), jwtUtils));
