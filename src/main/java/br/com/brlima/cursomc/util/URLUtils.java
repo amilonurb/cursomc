@@ -8,6 +8,10 @@ import java.util.stream.Collectors;
 
 public class URLUtils {
 
+    private URLUtils() {
+        // Construtor vazio
+    }
+
     public static List<Long> decodeLongList(String s) {
         return Arrays.asList(s.split(",")).stream().map(Long::parseLong).collect(Collectors.toList());
     }

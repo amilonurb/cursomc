@@ -9,8 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +16,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.brlima.cursomc.config.security.dto.CredenciaisDTO;
 import br.com.brlima.cursomc.config.security.user.UserSpringSecurity;
@@ -36,15 +36,14 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
         try {
             CredenciaisDTO credenciais = new ObjectMapper().readValue(request.getInputStream(), CredenciaisDTO.class);
-
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(credenciais.getEmail(), credenciais.getPassword(), new ArrayList<>());
-
             return authenticationManager.authenticate(authenticationToken);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            // Nada a fazer?
+            return null;
         }
     }
 
@@ -57,7 +56,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
-
         @Override
         public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
@@ -67,11 +65,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         private String jsonResponse() {
             long timestamp = new Date().getTime();
-            return new StringBuilder("{\"timestamp\": ").append(timestamp)//
-                    .append(", \"status\": 401")//
-                    .append(", \"error\": \"Não autorizado\"")//
-                    .append(", \"message\": \"Email ou senha inválidos\"")//
-                    .append(", \"path\": \"/login\"}")//
+            return new StringBuilder("{\"timestamp\": ").append(timestamp)
+                    .append(", \"status\": 401")
+                    .append(", \"error\": \"Não autorizado\"")
+                    .append(", \"message\": \"Email ou senha inválidos\"")
+                    .append(", \"path\": \"/login\"}")
                     .toString();
         }
     }

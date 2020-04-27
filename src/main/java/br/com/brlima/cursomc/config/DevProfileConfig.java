@@ -25,7 +25,7 @@ public class DevProfileConfig {
         if (!strategy.equals("create")) {
             return false;
         }
-        
+
         dbService.instantiateTestDatabase();
         return true;
     }

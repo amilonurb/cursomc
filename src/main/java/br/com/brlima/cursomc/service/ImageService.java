@@ -20,7 +20,6 @@ import br.com.brlima.cursomc.service.exception.FileException;
 public class ImageService {
 
     public BufferedImage getJPGImageFromFile(MultipartFile uploadedFile) {
-
         String extension = FilenameUtils.getExtension(uploadedFile.getOriginalFilename());
 
         if (!"png".equals(extension) && !"jpg".equals(extension)) {
@@ -58,10 +57,7 @@ public class ImageService {
 
     public BufferedImage cropSquare(BufferedImage image) {
         int min = (image.getHeight() <= image.getWidth()) ? image.getHeight() : image.getWidth();
-        return Scalr.crop(image, //
-                (image.getWidth() / 2) - (min / 2), //
-                (image.getHeight() / 2) - (min / 2), //
-                min, min);
+        return Scalr.crop(image, (image.getWidth() / 2) - (min / 2), (image.getHeight() / 2) - (min / 2), min, min);
     }
 
     public BufferedImage resize(BufferedImage image, int size) {

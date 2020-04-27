@@ -50,15 +50,14 @@ public class CategoriaService {
             throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
         }
     }
-    
+
     public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String sortDirection) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(sortDirection), orderBy);
         return repository.findAll(pageRequest);
     }
 
     public Categoria fromDTO(CategoriaDTO dto) {
-        Categoria categoria = new Categoria(dto.getId(), dto.getNome());
-        return categoria;
+        return new Categoria(dto.getId(), dto.getNome());
     }
 
     private void updateFromData(Categoria current, Categoria data) {

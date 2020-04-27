@@ -23,13 +23,11 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
     public boolean isValid(ClienteNewDTO dto, ConstraintValidatorContext context) {
         List<FieldMessage> erros = new ArrayList<>();
 
-        if (dto.getCodigoTipoCliente().equals(TipoCliente.PESSOA_FISICA.getKey())
-                && !DocumentUtils.isValidCPF(dto.getCpfOuCnpj())) {
+        if (dto.getCodigoTipoCliente().equals(TipoCliente.PESSOA_FISICA.getKey()) && !DocumentUtils.isValidCPF(dto.getCpfOuCnpj())) {
             erros.add(new FieldMessage("cpfOuCnpj", "CPF inválido"));
         }
 
-        if (dto.getCodigoTipoCliente().equals(TipoCliente.PESSOA_JURIDICA.getKey())
-                && !DocumentUtils.isValidCNPJ(dto.getCpfOuCnpj())) {
+        if (dto.getCodigoTipoCliente().equals(TipoCliente.PESSOA_JURIDICA.getKey()) && !DocumentUtils.isValidCNPJ(dto.getCpfOuCnpj())) {
             erros.add(new FieldMessage("cpfOuCnpj", "CNPJ inválido"));
         }
 
@@ -39,8 +37,8 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 
         erros.forEach(fm -> {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate(fm.getErrorMessage())//
-                    .addPropertyNode(fm.getFieldName())//
+            context.buildConstraintViolationWithTemplate(fm.getErrorMessage())
+                    .addPropertyNode(fm.getFieldName())
                     .addConstraintViolation();
         });
         return erros.isEmpty();

@@ -42,8 +42,7 @@ public class CategoriaRest {
 
     @GetMapping
     public ResponseEntity<List<CategoriaDTO>> findAll() {
-        List<CategoriaDTO> categoriasDTO = service.findAll().stream().map(categoria -> new CategoriaDTO(categoria))
-                .collect(Collectors.toList());
+        List<CategoriaDTO> categoriasDTO = service.findAll().stream().map(CategoriaDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(categoriasDTO);
     }
 
@@ -52,10 +51,7 @@ public class CategoriaRest {
     public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO categoriaDTO) {
         Categoria categoria = service.fromDTO(categoriaDTO);
         categoria = service.insert(categoria);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()//
-                .path("/{id}")//
-                .buildAndExpand(categoria.getId())//
-                .toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 
@@ -64,7 +60,7 @@ public class CategoriaRest {
     public ResponseEntity<Void> update(@Valid @RequestBody CategoriaDTO categoriaDTO, @PathVariable("id") Long id) {
         Categoria categoria = service.fromDTO(categoriaDTO);
         categoria.setId(id);
-        categoria = service.update(categoria);
+        service.update(categoria);
         return ResponseEntity.noContent().build();
     }
 
@@ -79,14 +75,13 @@ public class CategoriaRest {
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<CategoriaDTO>> findPage(//
-            @RequestParam(value = "page", defaultValue = "0") Integer page, //
-            @RequestParam(value = "linePerPage", defaultValue = "24") Integer linesPerPage, //
-            @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy, //
+    public ResponseEntity<Page<CategoriaDTO>> findPage(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linePerPage", defaultValue = "24") Integer linesPerPage,
+            @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
             @RequestParam(value = "sortDirection", defaultValue = "ASC") String sortDirection) {
 
-        Page<CategoriaDTO> categoriasDTO = service.findPage(page, linesPerPage, orderBy, sortDirection)
-                .map(CategoriaDTO::new);
+        Page<CategoriaDTO> categoriasDTO = service.findPage(page, linesPerPage, orderBy, sortDirection).map(CategoriaDTO::new);
         return ResponseEntity.ok().body(categoriasDTO);
     }
 }

@@ -26,8 +26,7 @@ public class ProdutoService {
 
     public Produto find(Long id) {
         Optional<Produto> produto = this.repository.findById(id);
-        return produto.orElseThrow(() -> new ObjectNotFoundException(
-                String.format("Objeto não encontrado! ID: %s, Tipo: %s", id, Produto.class.getSimpleName())));
+        return produto.orElseThrow(() -> new ObjectNotFoundException(String.format("Objeto não encontrado! ID: %s, Tipo: %s", id, Produto.class.getSimpleName())));
     }
 
     public Page<Produto> search(String nome, List<Long> ids, Integer page, Integer linesPerPage, String orderBy, String sortDirection) {

@@ -40,8 +40,8 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
 
         erros.forEach(fm -> {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate(fm.getErrorMessage())//
-                    .addPropertyNode(fm.getFieldName())//
+            context.buildConstraintViolationWithTemplate(fm.getErrorMessage())
+                    .addPropertyNode(fm.getFieldName())
                     .addConstraintViolation();
         });
         return erros.isEmpty();

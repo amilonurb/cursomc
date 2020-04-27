@@ -40,10 +40,10 @@ public class PedidoRest {
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<Pedido>> findPage(//
-            @RequestParam(value = "page", defaultValue = "0") Integer page, //
-            @RequestParam(value = "linePerPage", defaultValue = "24") Integer linesPerPage, //
-            @RequestParam(value = "orderBy", defaultValue = "data") String orderBy, //
+    public ResponseEntity<Page<Pedido>> findPage(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linePerPage", defaultValue = "24") Integer linesPerPage,
+            @RequestParam(value = "orderBy", defaultValue = "data") String orderBy,
             @RequestParam(value = "sortDirection", defaultValue = "DESC") String sortDirection) {
 
         Page<Pedido> pedidos = service.findPage(page, linesPerPage, orderBy, sortDirection);

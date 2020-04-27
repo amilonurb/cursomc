@@ -44,8 +44,7 @@ public class Endereco implements Serializable {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    public Endereco(Long id, String logradouro, String numero, String complemento, String bairro, String cep,
-            Cidade cidade, Cliente cliente) {
+    public Endereco(Long id, String logradouro, String numero, String complemento, String bairro, String cep, Cidade cidade, Cliente cliente) {
         this.id = id;
         this.logradouro = logradouro;
         this.numero = numero;
@@ -55,5 +54,4 @@ public class Endereco implements Serializable {
         this.cidade = cidade;
         this.cliente = cliente;
     }
-
 }

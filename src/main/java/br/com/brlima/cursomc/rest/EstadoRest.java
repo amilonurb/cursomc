@@ -27,13 +27,13 @@ public class EstadoRest {
 
     @GetMapping
     public ResponseEntity<List<EstadoDTO>> findAll() {
-        List<EstadoDTO> estadosDTO = service.findAll().stream().map(estado -> new EstadoDTO(estado)).collect(Collectors.toList());
+        List<EstadoDTO> estadosDTO = service.findAll().stream().map(EstadoDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(estadosDTO);
     }
 
     @GetMapping("/{estadoId}/cidades")
     public ResponseEntity<List<CidadeDTO>> findCidades(@PathVariable Long estadoId) {
-        List<CidadeDTO> cidadesDTO = cidadeService.findByEstado(estadoId).stream().map(cidade -> new CidadeDTO(cidade)).collect(Collectors.toList());
+        List<CidadeDTO> cidadesDTO = cidadeService.findByEstado(estadoId).stream().map(CidadeDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(cidadesDTO);
     }
 }

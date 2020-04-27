@@ -50,12 +50,10 @@ public class PedidoService {
 
     public Pedido find(Long id) {
         Optional<Pedido> pedido = repository.findById(id);
-        return pedido.orElseThrow(() -> new ObjectNotFoundException(
-                "Objeto não encontrado! ID: " + id + ", Tipo: " + Pedido.class.getName()));
+        return pedido.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! ID: " + id + ", Tipo: " + Pedido.class.getName()));
     }
 
     public Pedido insert(Pedido pedido) {
-
         pedido.setId(null);
         pedido.setData(LocalDateTime.now());
 
@@ -88,7 +86,6 @@ public class PedidoService {
     }
 
     public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String sortDirection) {
-
         UserSpringSecurity user = UserService.authenticated();
         if (user == null) {
             throw new AuthorizationException("Acesso negado");

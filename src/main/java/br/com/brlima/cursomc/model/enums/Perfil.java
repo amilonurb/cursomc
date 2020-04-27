@@ -3,7 +3,8 @@ package br.com.brlima.cursomc.model.enums;
 public enum Perfil {
 
     // Prefixo ROLE_ é por regra do Spring Security
-    ADMIN(1, "ROLE_ADMIN"), CLIENTE(2, "ROLE_CLIENTE");
+    ADMIN(1, "ROLE_ADMIN"),
+    CLIENTE(2, "ROLE_CLIENTE");
 
     private Integer key;
     private String nome;

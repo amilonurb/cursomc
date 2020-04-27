@@ -37,32 +37,29 @@ public class SwaggerConfig {
 
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)//
-                .useDefaultResponseMessages(false)//
+        return new Docket(DocumentationType.SWAGGER_2)
+                .useDefaultResponseMessages(false)
                 .globalResponseMessage(RequestMethod.GET, Arrays.asList(message403, message404, message500))
-                .globalResponseMessage(RequestMethod.POST,
-                        Arrays.asList(message201, message403, message422, message500))
-                .globalResponseMessage(RequestMethod.PUT,
-                        Arrays.asList(message204PUT, message403, message404, message422, message500))
-                .globalResponseMessage(RequestMethod.DELETE,
-                        Arrays.asList(message204DELETE, message403, message404, message500))//
-                .select()//
-                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))//
-                .paths(PathSelectors.any())//
-                .build()//
+                .globalResponseMessage(RequestMethod.POST, Arrays.asList(message201, message403, message422, message500))
+                .globalResponseMessage(RequestMethod.PUT, Arrays.asList(message204PUT, message403, message404, message422, message500))
+                .globalResponseMessage(RequestMethod.DELETE, Arrays.asList(message204DELETE, message403, message404, message500))
+                .select()
+                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
+                .paths(PathSelectors.any())
+                .build()
                 .apiInfo(this.apiInfo());
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()//
+        return new ApiInfoBuilder()
                 .title("API do curso Spring Boot + Ionic")
                 .description("Esta API é utilizada no projeto do curso de Spring Boot do prof. Nelio Alves")
-                .version("Versão 1.0")//
+                .version("Versão 1.0")
                 .termsOfServiceUrl("https://www.udemy.com/terms")
                 .contact(new Contact("Nelio Alves", "udemy.com/user/nelio-alves", "nelio.cursos@gmail.com"))
-                .license("Permitido uso para estudantes")//
-                .licenseUrl("https://www.udemy.com/terms")//
-                .extensions(Collections.emptyList())//
+                .license("Permitido uso para estudantes")
+                .licenseUrl("https://www.udemy.com/terms")
+                .extensions(Collections.emptyList())
                 .build();
     }
 
@@ -73,7 +70,6 @@ public class SwaggerConfig {
     private ResponseMessage create201CustomMessage() {
         Map<String, Header> headers = new HashMap<>();
         headers.put("location", new Header("location", "URI do novo recurso", new ModelRef("string")));
-
         return new ResponseMessageBuilder().code(201).message("Recurso criado").headersWithDescription(headers).build();
     }
 }

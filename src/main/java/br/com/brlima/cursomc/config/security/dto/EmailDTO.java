@@ -18,5 +18,5 @@ public class EmailDTO implements Serializable {
 
     @NotEmpty(message = "Preenchimento obrigatório")
     @Email(message = "E-mail inválido")
-    private String email;    
+    private String email;
 }

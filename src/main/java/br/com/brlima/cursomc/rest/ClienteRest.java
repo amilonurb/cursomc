@@ -49,7 +49,7 @@ public class ClienteRest {
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<ClienteDTO>> findAll() {
-        List<ClienteDTO> clientesDTO = service.findAll().stream().map(cliente -> new ClienteDTO(cliente)).collect(Collectors.toList());
+        List<ClienteDTO> clientesDTO = service.findAll().stream().map(ClienteDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(clientesDTO);
     }
 
@@ -65,7 +65,7 @@ public class ClienteRest {
     public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO clienteDTO, @PathVariable("id") Long id) {
         Cliente cliente = service.fromDTO(clienteDTO);
         cliente.setId(id);
-        cliente = service.update(cliente);
+        service.update(cliente);
         return ResponseEntity.noContent().build();
     }
 
@@ -78,10 +78,10 @@ public class ClienteRest {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/page")
-    public ResponseEntity<Page<ClienteDTO>> findPage(//
-            @RequestParam(value = "page", defaultValue = "0") Integer page, //
-            @RequestParam(value = "linePerPage", defaultValue = "24") Integer linesPerPage, //
-            @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy, //
+    public ResponseEntity<Page<ClienteDTO>> findPage(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "linePerPage", defaultValue = "24") Integer linesPerPage,
+            @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
             @RequestParam(value = "sortDirection", defaultValue = "ASC") String sortDirection) {
         Page<ClienteDTO> clientesDTO = service.findPage(page, linesPerPage, orderBy, sortDirection).map(ClienteDTO::new);
         return ResponseEntity.ok().body(clientesDTO);

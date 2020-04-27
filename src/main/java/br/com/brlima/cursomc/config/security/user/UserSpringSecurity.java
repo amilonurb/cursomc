@@ -26,8 +26,8 @@ public class UserSpringSecurity implements UserDetails {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.authorities = perfis.stream()//
-                .map(p -> new SimpleGrantedAuthority(p.getNome()))//
+        this.authorities = perfis.stream()
+                .map(p -> new SimpleGrantedAuthority(p.getNome()))
                 .collect(Collectors.toList());
     }
 

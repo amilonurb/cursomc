@@ -14,9 +14,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class HeaderExposureFilter implements Filter {
-    
+
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {        
+    public void init(FilterConfig filterConfig) throws ServletException {
+        // Nada a fazer
     }
 
     @Override
@@ -27,6 +28,7 @@ public class HeaderExposureFilter implements Filter {
     }
 
     @Override
-    public void destroy() {        
+    public void destroy() {
+        // Nada a fazer
     }
 }
